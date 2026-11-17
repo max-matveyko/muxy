@@ -74,6 +74,8 @@ declare namespace Muxy {
     projectID: string;
     worktreeID: string;
     isZoomed: boolean;
+    /** The terminal's server session, as `MUXY_SESSION_ID` in it; `null` before it starts. */
+    sessionID: string | null;
   }
 
   interface ProjectInfo {

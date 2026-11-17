@@ -272,6 +272,10 @@ fn extensions_zoom_focus_and_check_panes(cx: &mut TestAppContext) {
     let tab = state.open_terminal_tab(home).expect("tab");
     let first = state.window().active_pane.expect("pane");
     let second = state.split_pane(first, Direction::Right).expect("split");
+    let session = muxy_protocol::SessionId::new(18_262_100_584_931_620_005).expect("session");
+    state
+        .set_pane_session(second, Some(session))
+        .expect("session");
     state.select_tab(home, tab).expect("select");
     let (view, cx) = open(state, cx);
     let pane = |id: PaneId| json!({"paneID": id.to_string()});
@@ -315,6 +319,16 @@ fn extensions_zoom_focus_and_check_panes(cx: &mut TestAppContext) {
         .expect("listed pane");
     assert_eq!(entry["tabID"], tab.to_string());
     assert_eq!(entry["worktreeID"], home.to_string());
+    assert_eq!(
+        entry["sessionID"], "18262100584931620005",
+        "a string, since it doesn't fit a JavaScript number"
+    );
+    let unattached = listed
+        .as_array()
+        .and_then(|panes| panes.iter().find(|entry| entry["id"] == first.to_string()))
+        .cloned()
+        .expect("listed pane");
+    assert_eq!(unattached["sessionID"], Value::Null);
 
     assert_eq!(
         call(&view, cx, "panes.equalize", pane(first)),

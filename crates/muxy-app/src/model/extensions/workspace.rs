@@ -702,6 +702,12 @@ impl AppModel {
                             "projectID": super::events::root_of(project).to_string(),
                             "worktreeID": project.id.to_string(),
                             "isZoomed": tab.zoomed == Some(pane.id),
+                            "sessionID": match pane.content {
+                                PaneContent::Terminal { session: Some(session) } => {
+                                    Value::String(session.get().to_string())
+                                }
+                                _ => Value::Null,
+                            },
                         })
                     })
                     .collect(),

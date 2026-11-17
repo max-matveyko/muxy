@@ -55,7 +55,7 @@ their `clear` functions.
 | `tabs.pin(id, pinned = true)` | Pinned tabs sit first |
 | `tabs.move(id, { index } \| { project })` | Reorders the tab, or moves it to the end of another project |
 | `tabs.moveToWindow(id)`, `dock(id)` | Opens the tab in a window of its own, or returns it to the main window |
-| `panes.list()` | `[{ id, title, workingDirectory, isFocused, tabID, projectID, worktreeID, isZoomed }]` of terminals across projects |
+| `panes.list()` | `[{ id, title, workingDirectory, isFocused, tabID, projectID, worktreeID, isZoomed, sessionID }]` of terminals across projects. `sessionID` is the terminal's server session, as `MUXY_SESSION_ID` in it, or `null` before it starts |
 | `panes.send(id, text)`, `sendKeys(id, key)` | |
 | `panes.readScreen(id, lines = 50)` | The last rows of the screen as text, up to 500 |
 | `panes.close(id)`, `rename(id, title)` | |
