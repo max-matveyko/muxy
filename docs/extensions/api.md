@@ -19,7 +19,7 @@ a message.
 | --- | :-: | :-: | :-: |
 | `notifications`, `dialog`, `storage`, `shortcuts`, `topbar`, `rail`, `statusbar`, `agents`, `gh`, `git`, `exec`, `modal`, `panels` | ✓ | ✓ | ✓ |
 | `app`, `ui`, `commands`, `composer`, `layouts`, `preferences`, `settings`, `clipboard` | ✓ | ✓ | ✓ |
-| `tabs.open` | ✓ | ✓ | ✓ |
+| `tabs.open`, `tabs.list`, `panes.list` | ✓ | ✓ | ✓ |
 | other `tabs`, `panes`, `projects`, `workspaces`, `worktrees`, `files`, `toast`, `execAsync` | ✓ | ✓ | |
 | `events` | ✓ | | ✓ |
 | `tabs.setTitle`, `tabs.setIcon`, `panel`, `popover`, `http`, `lifecycle`, `data`, `theme` | ✓ | | |

@@ -90,7 +90,11 @@
   muxy.rail = items('rail.set', false);
   muxy.statusbar = items('statusbar.set', true);
   if (background) {
-    muxy.tabs = { open: request => dispatch('tabs.open', request || {}) };
+    muxy.tabs = {
+      list: o => dispatch('tabs.list', { project: optional((o || {}).project) }),
+      open: request => dispatch('tabs.open', request || {}),
+    };
+    muxy.panes = { list: () => dispatch('panes.list', {}) };
   } else {
     muxy.tabs = {
       list: o => dispatch('tabs.list', { project: optional((o || {}).project) }),

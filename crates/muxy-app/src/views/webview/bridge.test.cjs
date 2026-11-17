@@ -339,6 +339,19 @@ test('tabs.split forwards tab IDs and an optional edge', async () => {
   ]);
 });
 
+test('background scripts can list tabs and panes but not change them', () => {
+  const messages = [];
+  const muxy = vm.runInNewContext(apiSource)((verb, args) => {
+    messages.push([verb, args]);
+    return [];
+  }, { owner: 'test', surface: 'background' });
+  assert.deepEqual([...Object.keys(muxy.tabs)].sort(), ['list', 'open']);
+  assert.deepEqual([...Object.keys(muxy.panes)], ['list']);
+  muxy.tabs.list({ project: 'web' });
+  muxy.panes.list();
+  assert.deepEqual(JSON.parse(JSON.stringify(messages)), [['tabs.list', { project: 'web' }], ['panes.list', {}]]);
+});
+
 test('http, popover, and item calls forward main\'s payloads', async () => {
   const { muxy, messages } = page();
   await muxy.http.fetch('https://example.com', { method: 'post', headers: { a: 'b' }, body: 1, timeoutMs: '5' });
